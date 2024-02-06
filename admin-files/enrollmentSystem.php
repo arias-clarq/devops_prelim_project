@@ -78,7 +78,11 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td><button class="btn btn-success rounded-pill">Open</button></td>
+                        <td>
+                            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#OpenStudentApprovalModal">Open</button>
+                            <?php include 'admin-includes\enrollment-open-approval-modal.php'; ?>
+                        </td>
+
                     </tr>
 
                 </tbody>
@@ -111,9 +115,8 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <!-- if the student is not enrolled, this btn will be shown -->
-                        <td><button class="btn btn-success rounded-pill">Confirm</button>
-                            <!-- else if enrolled, this will be shown, the confirm btn will be hidden -->
+
+                        <td>
                             <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#OpenStudentMasterlistModal">Open</button>
                             <?php include 'admin-includes\enrollment-open-masterlist-modal.php'; ?>
                         </td>

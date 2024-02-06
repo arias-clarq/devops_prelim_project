@@ -3,7 +3,7 @@
 <!-- Page content -->
 <div class="main">
 
-    <div class="container-fluid border">
+    <div class="container-fluid border my-4 p-3">
         <div class="container">
             <h1>Inbox</h1>
             <div class="table-responsive-xxl">
