@@ -1,0 +1,105 @@
+/* The sidebar menu */
+.sidenav {
+    height: 100%;
+    /* Full-height: remove this if you want "auto" height */
+    width: 70px;
+    /* Set the width of the sidebar */
+    position: fixed;
+    /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1;
+    /* Stay on top */
+    top: 0;
+    /* Stay at the top */
+    left: 0;
+    background-color: #111;
+    /* Black */
+    overflow-x: hidden;
+    /* Disable horizontal scroll */
+    padding-top: 20px;
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 6px 7px 6px 6px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    opacity: .75;
+    display: block;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+    color: #f1f1f1;
+    opacity: 1;
+}
+
+/* Style page content */
+.main {
+    margin-left: 70px;
+    /* Same as the width of the sidebar */
+    padding: 0px 10px;
+}
+
+/* Position the icon at the bottom left corner */
+.bottom-icon {
+    position: absolute;
+    bottom: 10px;
+    left: 16px;
+    display: block;
+}
+
+/* Override Bootstrap default styles for small screens */
+@media (max-width: 576px) {
+    .sidenav {
+        width: 100%;
+        height: auto;
+        padding-top: 5px;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .sidenav a {
+        font-size: 18px;
+        margin-bottom: 0;
+        /* Remove space between icons */
+    }
+
+    .main {
+        margin-top: 70px;
+        /* Same as the height of the fixed navbar */
+    }
+
+    /* Position the icon at the top right corner on small screens */
+    .bottom-icon {
+        top: 20px;
+        left: auto;
+        right: 16px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    /* Style page content */
+    .main {
+        margin-left:0;
+        margin-top: 90px;
+        /* Same as the width of the sidebar */
+        padding: 0px 10px;
+    }
+}
+
+.hr-custom {
+    color: white;
+    margin: 0 5px;
+}
+
+@media (max-width: 576px) {
+
+    /* Apply the style only when the screen width is 576 pixels or less */
+    .text-end-to-left {
+        text-align: left !important;
+    }
+}

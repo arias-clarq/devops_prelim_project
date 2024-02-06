@@ -1,0 +1,13 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bg-gradient-custom {
+
+    background: linear-gradient(90deg, #22adf3,#015783 );
+
+}
+
+.custom-placeholder-color::placeholder {
+    color: #d4d4d4!important; /* Set your desired color */
+}
