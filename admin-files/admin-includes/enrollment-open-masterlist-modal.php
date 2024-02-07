@@ -1,5 +1,5 @@
 <!-- Modal when btn open in masterlist is clicked -->
-<div class="modal fade text-start" id="OpenStudentMasterlistModal" tabindex="-1" aria-labelledby="OpenStudentMasterlistModalLabel" aria-hidden="true">
+<div class="modal fade text-start" id="OpenStudentMasterlistModal<?=$row['studentID']?>" tabindex="-1" aria-labelledby="OpenStudentMasterlistModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
