@@ -2,10 +2,35 @@
 
 <!-- Page content -->
 <div class="main">
-
+    <!-- Enrollment Scheduling Appointment start-->
     <div class="container-fluid border text-center my-4 p-3">
         <h2>Enrollment Scheduling Appointment</h2>
-
+        <!-- appointment controler response messages -->
+        <div class="container">
+            <?php
+            if (isset($_SESSION['success_message'])) {
+                ?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>
+                        <?= $_SESSION['success_message'] ?>
+                    </strong>
+                </div>
+                <?php
+            } else if (isset($_SESSION['delete_message'])) {
+                ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>
+                        <?= $_SESSION['delete_message'] ?>
+                        </strong>
+                    </div>
+                <?php
+            }
+            unset($_SESSION['success_message']);
+            unset($_SESSION['delete_message']);
+            ?>
+        </div>
         <div class="container table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -18,43 +43,131 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <input type="date" name="" id="appointmentDate" class="form-control">
-                        </td>
-                        <td>
-                            <input type="time" name="" id="startTime" class="form-control">
-                        </td>
-                        <td></td>
-                        <td>
-                            <input type="number" name="" id="" class="form-control">
-                        </td>
-                        <td><button class="btn btn-success rounded-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Add"><i class="fa-solid fa-plus"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>February 23, 2024 | Friday</p>
-                        </td>
-                        <td>
-                            <p>12:21 PM</p>
-                        </td>
-                        <td>
-                            <p>01:21 PM</p>
-                        </td>
-                        <td>
-                            <p>0</p>
-                        </td>
-                        <td><button class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#DeleteSlotModal"><i class="fa-solid fa-trash"></i></button></td>
-                        <?php include 'admin-includes/deletes-modal.php'; ?>
-                    </tr>
+                    <form action="../config/appointment_ctrl.php" method="post">
+                        <tr>
+                            <td>
+                                <input type="date" name="appointmentDate" class="form-control">
+                            </td>
+                            <td>
+                                <input type="time" name="startTime" id="startTime" class="form-control"
+                                    oninput="calculateEndTime()">
+                            </td>
+                            <td>
+                                <input type="time" name="endTime" id="endTime" class="form-control" readonly>
+                            </td>
+                            <td>
+                                <input type="number" name="slots" class="form-control">
+                            </td>
+                            <td>
+                                <button class="btn btn-success rounded-circle" data-bs-toggle="tooltip"
+                                    data-bs-placement="right" title="Add" type="submit" name="addAppointment">
+                                    <i class="fa-solid fa-plus"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
+
+                    <script>
+                        function calculateEndTime() {
+                            // Get the start time input value
+                            var startTimeInput = document.getElementById('startTime').value;
+
+                            // If start time is not empty
+                            if (startTimeInput) {
+                                // Parse the start time to get hours and minutes
+                                var parts = startTimeInput.split(':');
+                                var hours = parseInt(parts[0], 10);
+                                var minutes = parseInt(parts[1], 10);
+
+                                // Calculate the end time by adding an hour to the start time
+                                var endTime = new Date();
+                                endTime.setHours(hours + 1);
+                                endTime.setMinutes(minutes);
+
+                                // Format the end time to HH:mm format
+                                var formattedEndTime = ('0' + endTime.getHours()).slice(-2) + ':' + ('0' + endTime.getMinutes()).slice(-2);
+
+                                // Set the value of the end time input
+                                document.getElementById('endTime').value = formattedEndTime;
+                            }
+                        }
+                    </script>
+
+                    <?php
+                    $AppointmentSql = "SELECT * FROM `tbl_appointment`";
+                    $showAppointments = $conn->query($AppointmentSql);
+                    while ($row = $showAppointments->fetch_assoc()) {
+                        $start_time = strtotime($row['start_time']); // Parse start time
+                        $end_time = strtotime('+1 hour', $start_time); // Add an hour to the start time
+                        ?>
+                        <tr>
+                            <td>
+                                <p>
+                                    <?= date('F j, Y', strtotime($row['date'])) ?>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <?= date('h:i A', $start_time) ?>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <?= date('h:i A', $end_time) ?>
+                                </p>
+                            </td>
+                            <td>
+                                <p>
+                                    <?= $row['slots'] ?>
+                                </p>
+                            </td>
+                            <td><button class="btn btn-danger rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#DeleteSlotModal<?= $row['appointmentID'] ?>"><i
+                                        class="fa-solid fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <?php include 'admin-includes/deletes-modal/appointment.php'; ?>
+                    <?php }
+                    ?>
+
                 </tbody>
             </table>
         </div>
     </div>
+    <!-- Enrollment Scheduling Appointment end-->
 
+    <!-- Student Approval Request start -->
     <div class="container-fluid border text-center my-4 p-3">
         <h2>Student Approval Request</h2>
-
+        <!-- approval controler response messages -->
+        <div class="container">
+            <?php
+            if (isset($_SESSION['enrolled_message'])) {
+                ?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>
+                        <?= $_SESSION['enrolled_message'] ?>
+                    </strong>
+                </div>
+                <?php
+            } else if (isset($_SESSION['noCourse_message'])) {
+                ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>
+                        <?= $_SESSION['noCourse_message'] ?>
+                        <?php if (isset($_SESSION['updSub_message'])) {
+                            echo $_SESSION['updSub_message'];
+                        } ?>
+                        </strong>
+                    </div>
+                <?php
+            }
+            unset($_SESSION['noCourse_message']);
+            unset($_SESSION['enrolled_message']);
+            ?>
+        </div>
         <div class="container table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -70,25 +183,55 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#OpenStudentApprovalModal">Open</button>
-                            <?php include 'admin-includes\enrollment-open-approval-modal.php'; ?>
-                        </td>
+                    <?php
+                    $approval_studentSql = "SELECT * 
+                        FROM tbl_student
+                        INNER JOIN tbl_appointment ON tbl_student.appointmentID = tbl_appointment.appointmentID 
+                        INNER JOIN tbl_course ON tbl_student.courseID = tbl_course.courseID 
+                        INNER JOIN tbl_status ON tbl_status.statusID = tbl_student.statusID
+                        INNER JOIN tbl_student_info ON tbl_student.studentID = tbl_student_info.studentID 
+                        WHERE tbl_student.statusID = 1";
+                    $result = $conn->query($approval_studentSql);
 
-                    </tr>
+                    while ($row = $result->fetch_assoc()) {
+                        $start_time = strtotime($row['start_time']); // Parse start time
+                        ?>
+                        <tr>
+                            <td>
+                                <?= date('F j, Y', strtotime($row['date'])) ?>
+                            </td>
+                            <td>
+                                <?= date('h:i A', $start_time) ?>
+                            </td>
+                            <td>
+                                <?= $row['username'] ?>
+                            </td>
+                            <td>
+                                <?= $row['lName'] . ', ' . $row['fName'] . ' ' . $row['mName'] ?>
+                            </td>
+                            <td>
+                                <?= $row['courseName'] ?>
+                            </td>
+                            <td>
+                                <?= $row['year'] ?>
+                            </td>
+                            <td>
+                                <?= $row['status'] ?>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#OpenStudentApprovalModal<?= $row['studentID'] ?>">Open</button>
+                                <?php include 'admin-includes/enrollment-open-approval-modal.php'; ?>
+                            </td>
 
+                        </tr>
+                    <?php }
+                    ?>
                 </tbody>
             </table>
         </div>
     </div>
+    <!-- Student Approval Request end -->
 
     <div class="container-fluid border text-center my-4 p-3">
         <h2>Masterlist</h2>
@@ -97,7 +240,6 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
-
                         <th>Username</th>
                         <th>Name</th>
                         <th>Course</th>
@@ -108,28 +250,73 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <?php
+                    $masterlist_studentSql = "SELECT * 
+                        FROM tbl_student
+                        INNER JOIN tbl_appointment ON tbl_student.appointmentID = tbl_appointment.appointmentID 
+                        INNER JOIN tbl_course ON tbl_student.courseID = tbl_course.courseID 
+                        INNER JOIN tbl_status ON tbl_status.statusID = tbl_student.statusID
+                        INNER JOIN tbl_student_info ON tbl_student.studentID = tbl_student_info.studentID 
+                        WHERE tbl_student.statusID = 2";
+                    $result = $conn->query($masterlist_studentSql);
 
-                        <td>
-                            <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#OpenStudentMasterlistModal">Open</button>
-                            <?php include 'admin-includes\enrollment-open-masterlist-modal.php'; ?>
-                        </td>
-                    </tr>
-
+                    while ($row = $result->fetch_assoc()) {
+                        $start_time = strtotime($row['start_time']); // Parse start time
+                        ?>
+                        <tr>
+                            <td><?=$row['username']?></td>
+                            <td><?=$row['lName'].', '.$row['fName'].' '.$row['mName']?></td>
+                            <td><?=$row['courseName']?></td>
+                            <td><?=$row['year']?></td>
+                            <td><?=$row['section']?></td>
+                            <td><?=$row['status']?></td>
+                            <td>
+                                <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
+                                    data-bs-target="#OpenStudentMasterlistModal<?=$row['studentID']?>">Open</button>
+                                <?php include 'admin-includes\enrollment-open-masterlist-modal.php'; ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <!-- Subjects start -->
     <div class="container-fluid border text-center my-4 p-3">
         <h2>Subjects</h2>
-
+        <!-- subject controler response messages -->
+        <div class="container">
+            <?php
+            if (isset($_SESSION['addSub_message']) || isset($_SESSION['updSub_message'])) {
+                ?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>
+                        <?php if (isset($_SESSION['addSub_message'])) {
+                            echo $_SESSION['addSub_message'];
+                        } ?>
+                        <?php if (isset($_SESSION['updSub_message'])) {
+                            echo $_SESSION['updSub_message'];
+                        } ?>
+                    </strong>
+                </div>
+                <?php
+            } else if (isset($_SESSION['delSub_message'])) {
+                ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>
+                        <?= $_SESSION['delSub_message'] ?>
+                        </strong>
+                    </div>
+                <?php
+            }
+            unset($_SESSION['delSub_message']);
+            unset($_SESSION['addSub_message']);
+            unset($_SESSION['updSub_message']);
+            ?>
+        </div>
         <div class="container table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -143,80 +330,125 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>
-                            <input type="text" name="" id="" class="form-control">
-                        </td>
-                        <td>
-                            <!-- not sure with this one, i think pili lang mga subjects dito -->
-                            <select name="" id="" class="form-select" aria-placeholder="Select course...">
-                                <option value="">Devops 02</option>
-                                <option value="">Subject2</option>
-                                <option value="">Subject3</option>
-                                <option value="">Subject4</option>
-                            </select>
-                        </td>
+                    <form action="../config/subject_ctrl.php" method="post">
+                        <tr>
+                            <td>
+                                <input type="text" name="subject" class="form-control" placeholder="Type a subject">
+                            </td>
+                            <td>
+                                <select name="course" class="form-select">
+                                    <option selected>Select a course...</option>
+                                    <?php
+                                    $courseSql = "SELECT * FROM `tbl_course`";
+                                    $showCourse = $conn->query($courseSql);
+                                    while ($row = $showCourse->fetch_assoc()) {
+                                        ?>
+                                        <option value="<?= $row['courseID'] ?>">
+                                            <?= $row['courseName'] ?>
+                                        </option>
+                                    <?php }
+                                    ?>
+                                </select>
+                            </td>
 
-                        <td>
-                            <input type="text" name="" id="" class="form-control">
-                        </td>
-                        <td>
-                            <select name="" id="" class="form-select" aria-placeholder="Select year level...">
-                                <option value="I">I</option>
-                                <option value="II">II</option>
-                                <option value="III">III</option>
-                                <option value="IV">IV</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="number" name="" id="" class="form-control" placeholder="Type no. of hours">
-                        </td>
-                        <td><button class="btn btn-success rounded-circle" data-bs-toggle="tooltip" data-bs-placement="right" title="Add"><i class="fa-solid fa-plus"></i></button></td>
-                    </tr>
+                            <td>
+                                <input type="text" name="instructor" class="form-control">
+                            </td>
+                            <td>
+                                <select name="year" class="form-select">
+                                    <option selected>Select a year level...</option>
+                                    <option value="I">I</option>
+                                    <option value="II">II</option>
+                                    <option value="III">III</option>
+                                    <option value="IV">IV</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" min="1" name="hours" id="" class="form-control"
+                                    placeholder="Type no. of hours">
+                            </td>
+                            <td><button type="submit" class="btn btn-success rounded-circle" data-bs-toggle="tooltip"
+                                    data-bs-placement="right" title="Add" name="btn_addSubject"><i
+                                        class="fa-solid fa-plus"></i></button></td>
+                        </tr>
+                    </form>
                     <!-- the following are the ADDED subjects, and they are editable -->
-                    <tr>
-                        <td>
-                            <input type="text" name="" value="DEVOPS 02" id="" class="form-control">
-                        </td>
-                        <td>
-                            <select name="" id="" class="form-select">
-                                <option value="">Devops 02</option>
-                                <option value="">Subject2</option>
-                                <option value="">Subject3</option>
-                                <option value="">Subject4</option>
-                            </select>
-                        </td>
+                    <?php
+                    $subjectSql = 'SELECT * FROM `tbl_subject` INNER JOIN tbl_course WHERE tbl_subject.courseID = tbl_course.courseID';
+                    $showSubject = $conn->query($subjectSql);
 
-                        <td>
-                            <input type="text" name="" id="" value="Mr Ronnie Sangil" class="form-control">
-                        </td>
-                        <td>
-                            <select name="" id="" class="form-select">
-                                <option value="I">I</option>
-                                <option value="II">II</option>
-                                <option value="III">III</option>
-                                <option value="IV">IV</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="number" name="" id="" value="1" class="form-control">
-                        </td>
-                        <td>
-                            <button class="btn btn-success btn-sm  my-1 rounded-pill">Update</button>
-                            <button class="btn btn-danger btn-sm  my-1 rounded-pill" data-bs-toggle="modal" data-bs-target="#DeleteSubjectModal">Delete</button>
-                        </td>
-                    </tr>
-
+                    while ($row = $showSubject->fetch_assoc()) {
+                        ?>
+                        <tr>
+                            <form action="../config/subject_ctrl.php" method="post">
+                                <td>
+                                    <input type="text" name="subject" value="<?= $row['subjectName'] ?>" id=""
+                                        class="form-control">
+                                </td>
+                                <td>
+                                    <select name="course" class="form-select">
+                                        <?php
+                                        $courseSql = "SELECT * FROM `tbl_course`";
+                                        $showCourse = $conn->query($courseSql);
+                                        while ($row2 = $showCourse->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?= $row2['courseID'] ?>" <?php if ($row2['courseID'] == $row['courseID']) {
+                                                  echo "selected";
+                                              } ?>>
+                                                <?= $row2['courseName'] ?>
+                                            </option>
+                                        <?php }
+                                        ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="instructor" value="<?= $row['instructor'] ?>"
+                                        class="form-control">
+                                </td>
+                                <td>
+                                    <select name="year" class="form-select">
+                                        <option value="I" <?php if ($row['year'] == 'I') {
+                                            echo "selected";
+                                        } ?>>I</option>
+                                        <option value="II" <?php if ($row['year'] == 'II') {
+                                            echo "selected";
+                                        } ?>>II</option>
+                                        <option value="III" <?php if ($row['year'] == 'III') {
+                                            echo "selected";
+                                        } ?>>III</option>
+                                        <option value="IV" <?php if ($row['year'] == 'IV') {
+                                            echo "selected";
+                                        } ?>>IV</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" name="hours" id="" value="<?= $row['hours'] ?>"
+                                        class="form-control">
+                                </td>
+                                <td>
+                                    <input type="hidden" name="subjectID" value="<?= $row['subjectID'] ?>">
+                                    <button type="submit" class="btn btn-success btn-sm  my-1 rounded-pill"
+                                        name="btn_updSubject">Update</button>
+                                    <button type="button" class="btn btn-danger btn-sm  my-1 rounded-pill"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#DeleteSubjectModal<?= $row['subjectID'] ?>">Delete</button>
+                                    <?php include 'admin-includes/deletes-modal/subjects.php'; ?>
+                                </td>
+                            </form>
+                        </tr>
+                    <?php }
+                    ?>
                 </tbody>
             </table>
         </div>
     </div>
+    <!-- Subjects end -->
 
 
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         // Get the current date
         var currentDate = new Date().toISOString().split('T')[0];
 

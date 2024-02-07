@@ -1,3 +1,10 @@
+<?php 
+    session_start();
+    if($_SESSION['token'] !== true){
+        header('location: ../index.php');
+    }
+    include_once('../config/dbcon.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 

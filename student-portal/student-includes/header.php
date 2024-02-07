@@ -1,5 +1,10 @@
-<?php session_start(); ?>
-
+<?php
+session_start();
+if ($_SESSION['token'] !== true) {
+    header('location: ../index.php');
+}
+include_once "../config/dbcon.php";
+?>
 <?php $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1); ?>
 
 <!DOCTYPE html>
@@ -10,8 +15,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prelim - exam</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,26 +38,32 @@
             <a class="navbar-brand" href="studentDashboard.php">
                 <img src="https://webstockreview.net/images/win-clipart-closed-window-13.png" alt="" width="60">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link <?= $page == 'studentDashboard.php' ? 'active' : '' ?>" href="studentDashboard.php">Home</a>
+                        <a class="nav-link <?= $page == 'studentDashboard.php' ? 'active' : '' ?>"
+                            href="studentDashboard.php">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?= $page == 'grades.php' ? 'active' : '' ?>" href="grades.php">E-Grades</a>
                     </li>
-                    
+
                 </ul>
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user px-1 fa-lg"></i>Juan Dela Cruz
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-regular fa-circle-user px-1 fa-lg"></i><?= $_SESSION['student'] ?>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="studentProfile.php"><i class="fa-solid fa-gears px-1"></i>Profile</a></li>
-                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i class="fa-solid fa-right-from-bracket px-1"></i>Logout</a></li>
+                        <li><a class="dropdown-item" href="studentProfile.php"><i
+                                    class="fa-solid fa-gears px-1"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#LogoutModal"><i
+                                    class="fa-solid fa-right-from-bracket px-1"></i>Logout</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -66,13 +80,15 @@
 
 
                 <!-- Modal in logout-->
-                <div class="modal fade text-start" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+                <div class="modal fade text-start" id="LogoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-body text-center py-5">
                                 <h5>Are you sure to logout?</h5>
                                 <a type="button" href="../index.php" class="btn btn-success rounded-pill">Yes</a>
-                                <button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal" aria-label="Close">No</button>
+                                <button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal"
+                                    aria-label="Close">No</button>
                             </div>
                         </div>
                     </div>

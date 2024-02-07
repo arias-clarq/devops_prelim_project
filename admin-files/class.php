@@ -12,10 +12,16 @@
                     <label for="">Course</label>
                     <select name="" id="" class="form-select">
                         <option selected>Select a Course</option>
-                        <option value="">Devops 02</option>
-                        <option value="">Subject2</option>
-                        <option value="">Subject3</option>
-                        <option value="">Subject4</option>
+                        <?php
+                        $courseSql = "SELECT * FROM `tbl_course`";
+                        $showCourse = $conn->query($courseSql);
+                        while ($row = $showCourse->fetch_assoc()) {
+                            ?>
+                            <option value="<?= $row['courseID'] ?>">
+                                <?= $row['courseName'] ?>
+                            </option>
+                        <?php }
+                        ?>
                     </select>
                 </div>
                 <div class="col">

@@ -1,4 +1,6 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include "config/dbcon.php";
+?>
 
 <?php $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1); ?>
 
