@@ -9,6 +9,8 @@ if (isset($_POST['btn_save_grades'])) {
     $midterm = $_POST['midterm'];
     $finals = $_POST['finals'];
 
+    // echo 'studentID: '.$studentID.'subjectID: '.$subjectID.'prelims: '.$prelims.'midterm: '.$midterm.'finals: '.$finals.' ';
+
     $sqlDuplicate = "SELECT * FROM tbl_grade WHERE studentID = $studentID AND subjectId = $subjectID";
     $res_sqlDuplicate = $conn->query($sqlDuplicate);
     if ($res_sqlDuplicate->num_rows > 0) {
@@ -24,20 +26,18 @@ if (isset($_POST['btn_save_grades'])) {
         } else {
             echo "Error updating grades: " . $conn->error;
         }
-    }
-    else{
+    } else {
         $sql_insert_grade = "INSERT INTO `tbl_grade`(`studentID`,`subjectID`,`prelims`, `midterm`, `finals`) VALUES ('{$studentID}','{$subjectID}','{$prelims}','{$midterm}','{$finals}')";
-            $result_sql_insert_grade = $conn->query($sql_insert_grade);
+        $result_sql_insert_grade = $conn->query($sql_insert_grade);
 
-            if ($result_sql_insert_grade !== false) {
-                $_SESSION['addSub_message'] = "Grade successfully added.";
-                echo 'add success';
-                // header("location: ../admin-files/viewGrades.php?sID=$studentID");
-                exit(); // Make sure to exit after header redirection
-            } else {
-                echo "Error adding subject: " . $conn->error;
-            }
+        if ($result_sql_insert_grade !== false) {
+            $_SESSION['addSub_message'] = "Grade successfully added.";
+            echo 'add success';
+            // header("location: ../admin-files/viewGrades.php?sID=$studentID");
+            exit(); // Make sure to exit after header redirection
+        } else {
+            echo "Error adding subject: " . $conn->error;
+        }
     }
 }
 
-// Close your database connection here if necessary
