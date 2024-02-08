@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2024 at 12:11 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- Generation Time: Feb 08, 2024 at 01:08 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,29 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_enrollment`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `school_profile`
+--
+
+CREATE TABLE `school_profile` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `mobile_number` varchar(15) DEFAULT NULL,
+  `telephone_number` varchar(15) DEFAULT NULL,
+  `description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `school_profile`
+--
+
+INSERT INTO `school_profile` (`id`, `name`, `location`, `email`, `mobile_number`, `telephone_number`, `description`) VALUES
+(1, 'Arayat Institute', 'Arayat, Pampanga', 'unknown@gmail.com', '09750737973', '0975073797355', 'School with a black heart');
 
 -- --------------------------------------------------------
 
@@ -42,6 +65,72 @@ INSERT INTO `tbl_appointment` (`appointmentID`, `date`, `start_time`, `slots`) V
 (11, '2024-02-10', '10:00:00', 5),
 (13, '2024-02-23', '22:30:00', 10),
 (14, '2024-02-08', '07:00:00', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_background`
+--
+
+CREATE TABLE `tbl_background` (
+  `Bg_id` int(11) NOT NULL,
+  `Bg` blob NOT NULL,
+  `Value` int(11) NOT NULL,
+  `title` varchar(200) NOT NULL,
+  `description` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_background`
+--
+
+INSERT INTO `tbl_background` (`Bg_id`, `Bg`, `Value`, `title`, `description`) VALUES
+(8, 0x2e2e2f6173736574732f75706c6f6164732f3337333035333935335f313436383234323238373332333132365f353433303238333133333939313438333332355f6e2e6a7067, 1, 'general assembly', 'working together'),
+(9, 0x2e2e2f6173736574732f75706c6f6164732f73686f74692e706e67, 1, 'shotii', 'shoti sa focus room'),
+(10, 0x2e2e2f6173736574732f75706c6f6164732f6d696e742d62616e6e65722e706e67, 0, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_cardcontent`
+--
+
+CREATE TABLE `tbl_cardcontent` (
+  `cardcontent_id` int(11) NOT NULL,
+  `Title` text NOT NULL,
+  `Caption` text NOT NULL,
+  `Size` int(255) NOT NULL,
+  `Color` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_cardcontent`
+--
+
+INSERT INTO `tbl_cardcontent` (`cardcontent_id`, `Title`, `Caption`, `Size`, `Color`) VALUES
+(7, 'tapos na ba to?', 'tapos na. yiee', 5, '#d4d4d4'),
+(9, 'sakit sa batok', 'as', 2, '#6a0c0c'),
+(11, 'sakit sa batok', 'assasas', 5, '#d9d9d9');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_card_images`
+--
+
+CREATE TABLE `tbl_card_images` (
+  `card&images_id` int(11) NOT NULL,
+  `Image` blob NOT NULL,
+  `Title` varchar(255) NOT NULL,
+  `Caption` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_card_images`
+--
+
+INSERT INTO `tbl_card_images` (`card&images_id`, `Image`, `Title`, `Caption`) VALUES
+(9, 0x2e2e2f6173736574732f75706c6f6164732f73686f74692e706e67, 'focus room', 'pero nanghuhunting');
 
 -- --------------------------------------------------------
 
@@ -85,6 +174,24 @@ CREATE TABLE `tbl_grade` (
 INSERT INTO `tbl_grade` (`gradeID`, `studentID`, `subjectID`, `prelims`, `midterm`, `finals`) VALUES
 (1, 1, 1, 0, 0, 0),
 (2, 1, 8, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_logo`
+--
+
+CREATE TABLE `tbl_logo` (
+  `logoid` int(11) NOT NULL,
+  `Logo` blob NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_logo`
+--
+
+INSERT INTO `tbl_logo` (`logoid`, `Logo`) VALUES
+(1, 0x2e2e2f6173736574732f75706c6f6164732f556e7469746c6564335f32303233313031313032323332392e706e67);
 
 -- --------------------------------------------------------
 
@@ -219,10 +326,34 @@ INSERT INTO `tbl_user` (`userID`, `username`, `password`) VALUES
 --
 
 --
+-- Indexes for table `school_profile`
+--
+ALTER TABLE `school_profile`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_appointment`
 --
 ALTER TABLE `tbl_appointment`
   ADD PRIMARY KEY (`appointmentID`);
+
+--
+-- Indexes for table `tbl_background`
+--
+ALTER TABLE `tbl_background`
+  ADD PRIMARY KEY (`Bg_id`);
+
+--
+-- Indexes for table `tbl_cardcontent`
+--
+ALTER TABLE `tbl_cardcontent`
+  ADD PRIMARY KEY (`cardcontent_id`);
+
+--
+-- Indexes for table `tbl_card_images`
+--
+ALTER TABLE `tbl_card_images`
+  ADD PRIMARY KEY (`card&images_id`);
 
 --
 -- Indexes for table `tbl_course`
@@ -271,10 +402,34 @@ ALTER TABLE `tbl_user`
 --
 
 --
+-- AUTO_INCREMENT for table `school_profile`
+--
+ALTER TABLE `school_profile`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `tbl_appointment`
 --
 ALTER TABLE `tbl_appointment`
   MODIFY `appointmentID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `tbl_background`
+--
+ALTER TABLE `tbl_background`
+  MODIFY `Bg_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tbl_cardcontent`
+--
+ALTER TABLE `tbl_cardcontent`
+  MODIFY `cardcontent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `tbl_card_images`
+--
+ALTER TABLE `tbl_card_images`
+  MODIFY `card&images_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_course`
