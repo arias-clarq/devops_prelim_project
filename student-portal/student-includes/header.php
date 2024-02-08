@@ -36,7 +36,21 @@ include_once "../config/dbcon.php";
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="studentDashboard.php">
-                <img src="https://webstockreview.net/images/win-clipart-closed-window-13.png" alt="" width="60">
+                <?php
+    // Fetch the logo data from the database
+    $sql = "SELECT * FROM `tbl_logo` WHERE `logoid` = 1"; 
+    $result = $conn->query($sql);
+
+    // Check if there's a row in the result
+    if ($result->num_rows > 0) {
+        // Fetch the logo data
+        $row = $result->fetch_assoc();
+        ?>
+        <img src="././uploads/<?php echo $row["Logo"]; ?>" alt="" width="60" height="60">
+        <?php
+    } 
+    
+    ?>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
