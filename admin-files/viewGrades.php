@@ -76,10 +76,13 @@ if (isset($_GET['sID'])) {
                                 $studentYear = $row['year'];
                                 $studentID = $row['studentID'];
 
-                                $sql_subject = "SELECT * FROM tbl_subject WHERE courseID = '$studentCourseID' AND year = '$studentYear'";
+                                $sql_subject = "SELECT * FROM tbl_subject INNER JOIN tbl_grade ON tbl_grade.subjectID = tbl_subject.subjectID WHERE courseID = '$studentCourseID' AND year = '$studentYear'";
                                 $resultSubjects = $conn->query($sql_subject);
 
-                                while ($row2 = $resultSubjects->fetch_assoc()) { ?>
+                                while ($row2 = $resultSubjects->fetch_assoc()) { 
+                                      // Calculate the average and determine remarks
+                                      $average = round(($row2['prelims'] + $row2['midterm'] + $row2['finals']) / 3, 2);
+                                      $remarks = ($average >= 75 && $average <= 100) ? 'Passed' : 'Failed';?>
                                     <form action="../config/grades_ctrl.php" method="post">
                                         <tr class="text-center">
                                             <td>
@@ -89,19 +92,19 @@ if (isset($_GET['sID'])) {
                                                 <?= $row2['instructor'] ?>
                                             </td>
 
-                                            <td> <input type="number" class="form-control" name="prelims"> </td>
-                                            <td> <input type="number" class="form-control" name="midterm"> </td>
-                                            <td> <input type="number" class="form-control" name="finals"> </td>
+                                            <td> <input type="text" step="0.01" class="form-control" value="<?= $row2['prelims'] ?>" name="prelims"> </td>
+                                            <td> <input type="text" step="0.01" class="form-control" value="<?= $row2['midterm'] ?>"  name="midterm"> </td>
+                                            <td> <input type="text" step="0.01" class="form-control" value="<?= $row2['finals'] ?>" name="finals"> </td>
 
-                                            <td><input type="number" class="form-control-plaintext" name=""></td>
+                                            <td><input type="text" step="0.01" class="form-control" readonly name="average" value="<?= $average ?>"></td>
                                             <td>
-                                                <p class="text-uppercase">passed</p>
+                                                <p class="text-uppercase"> <?php echo $remarks; ?></p>
                                             </td>
                                             <td>
                                                 <button class="btn btn-success" type="submit" name="btn_save_grades">Save</button>
                                                 <!-- hidden -->
-                                                <input type="text" name="studentID" value="<?= $row['studentID'] ?>">
-                                                <input type="text" name="subjectID" value="<?= $row2['subjectID'] ?>">
+                                                <input type="hidden" name="studentID" value="<?= $row['studentID'] ?>">
+                                                <input type="hidden" name="subjectID" value="<?= $row2['subjectID'] ?>">
                                             </td>
                                         </tr>
                                     </form>
@@ -115,6 +118,7 @@ if (isset($_GET['sID'])) {
 } ?>
     </div>
 </div>
+
 
 
 <?php include 'admin-includes/footer.php'; ?>

@@ -1,8 +1,18 @@
  <!-- Side navigation -->
  <div class="sidenav text-center">
-     <a class="" href="#">
-         <img src="https://webstockreview.net/images/win-clipart-closed-window-13.png" alt="" width="60" height="60">
-     </a>
+     <?php
+        include_once "../config/dbcon.php";
+        $sql = "SELECT * FROM `tbl_logo` WHERE `logoid` = 1";
+        $result = $conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            // Fetch the logo data
+            $row = $result->fetch_assoc();
+        ?>
+         <a class="" href="#">
+             <img src=".././uploads/<?php echo $row["Logo"]; ?>" alt="" height="60">
+         </a>
+     <?php  } ?>
      <hr class="hr-custom">
      <a href="users_mgt.php" data-bs-toggle="tooltip" data-bs-placement="right" title="Users Management"><i class="fa-solid fa-users"></i></a>
      <a href="cms.php" data-bs-toggle="tooltip" data-bs-placement="right" title="Content Management"><i class="fas fa-grip-horizontal text-primary"></i></a>

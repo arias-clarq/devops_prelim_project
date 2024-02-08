@@ -22,6 +22,7 @@ if (isset($_POST['btn_save_grades'])) {
 
         if ($conn->query($updateGradesSql) === TRUE) {
             echo "Grades updated successfully";
+            header("location: ../admin-files/viewGrades.php?sID=$studentID");
             // You can redirect or perform other actions after successful update
         } else {
             echo "Error updating grades: " . $conn->error;
@@ -33,7 +34,7 @@ if (isset($_POST['btn_save_grades'])) {
         if ($result_sql_insert_grade !== false) {
             $_SESSION['addSub_message'] = "Grade successfully added.";
             echo 'add success';
-            // header("location: ../admin-files/viewGrades.php?sID=$studentID");
+            header("location: ../admin-files/viewGrades.php?sID=$studentID");
             exit(); // Make sure to exit after header redirection
         } else {
             echo "Error adding subject: " . $conn->error;

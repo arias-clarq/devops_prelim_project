@@ -1,7 +1,7 @@
 <?php
 // Check if the current page is not 'contactUs.php'
 $current_page = basename($_SERVER['PHP_SELF']);
-if ($current_page != 'contactUs.php') {
+if ($current_page != 'contactUs.php' && $current_page != 'index.php') {
 ?>
 
     <footer class="bg-dark text-light p-2 sticky-bottom">
