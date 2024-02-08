@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2024 at 05:20 PM
+-- Generation Time: Feb 08, 2024 at 12:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -188,7 +188,8 @@ CREATE TABLE `tbl_subject` (
 INSERT INTO `tbl_subject` (`subjectID`, `subjectName`, `courseID`, `instructor`, `year`, `hours`) VALUES
 (1, 'Devops 2', 1, 'magic man', 'III', 5),
 (4, 'Webdev', 3, 'wizard man', 'III', 5),
-(8, 'Itelec 3', 1, 'knight man', 'III', 2);
+(8, 'Itelec 3', 1, 'knight man', 'III', 2),
+(9, 'CC106', 1, 'Ms Jane', 'III', 3);
 
 -- --------------------------------------------------------
 
@@ -309,7 +310,7 @@ ALTER TABLE `tbl_student_info`
 -- AUTO_INCREMENT for table `tbl_subject`
 --
 ALTER TABLE `tbl_subject`
-  MODIFY `subjectID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `subjectID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`
