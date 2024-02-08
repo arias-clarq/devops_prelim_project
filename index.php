@@ -2,6 +2,20 @@
 include 'index-template/header.php';
 ?>
 <!-- login error messages -->
+<div class="container">
+    <?php
+    if (isset($_SESSION['message'])) {
+        ?>
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <strong>
+                <?= $_SESSION['message'] ?>
+            </strong>
+        </div>
+        <?php
+    }
+    ?>
+</div>
 
 
 <div class="container-fluid d-flex justify-content-center">

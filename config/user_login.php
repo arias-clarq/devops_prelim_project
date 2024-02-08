@@ -26,17 +26,18 @@ if (strpos($username, "@admin") !== false) {
 
 } else if (strpos($username, "@student") !== false) {
 
-    $checkStatus = "SELECT * FROM `tbl_student` WHERE `username` = '{$username}' AND `password` = '{$password}' AND statusID = 2";
+    $checkStatus = "SELECT * FROM `tbl_student` WHERE `username` = '{$username}' OR `password` = '{$password}'";
     $checkStatusResult = $conn->query($checkStatus);
+    $row = $checkStatusResult->fetch_assoc();
 
-    if ($checkStatusResult->num_rows > 0) {
+    if ($row['statusID'] == 2) {
         // activate token
         $_SESSION['token'] = true;
         $userSql = "SELECT * FROM `tbl_student` WHERE username = '{$username}' AND password = '{$password}'";
         $result = $conn->query($userSql);
         //get userID
-        $row = $result->fetch_assoc();
-        $studentID = $row["studentID"];
+        $row2 = $result->fetch_assoc();
+        $studentID = $row2["studentID"];
 
 
         if ($result ->num_rows > 0) {

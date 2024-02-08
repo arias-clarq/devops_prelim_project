@@ -3,6 +3,10 @@
     if($_SESSION['token'] !== true){
         header('location: ../index.php');
     }
+
+    if(!isset($_SESSION['userID'])){
+        header('location: ../index.php');
+    }
     include_once('../config/dbcon.php');
 ?>
 <!DOCTYPE html>
