@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2024 at 01:08 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Feb 08, 2024 at 02:59 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -80,15 +80,6 @@ CREATE TABLE `tbl_background` (
   `description` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_background`
---
-
-INSERT INTO `tbl_background` (`Bg_id`, `Bg`, `Value`, `title`, `description`) VALUES
-(8, 0x2e2e2f6173736574732f75706c6f6164732f3337333035333935335f313436383234323238373332333132365f353433303238333133333939313438333332355f6e2e6a7067, 1, 'general assembly', 'working together'),
-(9, 0x2e2e2f6173736574732f75706c6f6164732f73686f74692e706e67, 1, 'shotii', 'shoti sa focus room'),
-(10, 0x2e2e2f6173736574732f75706c6f6164732f6d696e742d62616e6e65722e706e67, 0, '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -103,15 +94,6 @@ CREATE TABLE `tbl_cardcontent` (
   `Color` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `tbl_cardcontent`
---
-
-INSERT INTO `tbl_cardcontent` (`cardcontent_id`, `Title`, `Caption`, `Size`, `Color`) VALUES
-(7, 'tapos na ba to?', 'tapos na. yiee', 5, '#d4d4d4'),
-(9, 'sakit sa batok', 'as', 2, '#6a0c0c'),
-(11, 'sakit sa batok', 'assasas', 5, '#d9d9d9');
-
 -- --------------------------------------------------------
 
 --
@@ -124,13 +106,6 @@ CREATE TABLE `tbl_card_images` (
   `Title` varchar(255) NOT NULL,
   `Caption` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbl_card_images`
---
-
-INSERT INTO `tbl_card_images` (`card&images_id`, `Image`, `Title`, `Caption`) VALUES
-(9, 0x2e2e2f6173736574732f75706c6f6164732f73686f74692e706e67, 'focus room', 'pero nanghuhunting');
 
 -- --------------------------------------------------------
 
@@ -162,9 +137,9 @@ CREATE TABLE `tbl_grade` (
   `gradeID` int(255) NOT NULL,
   `studentID` int(200) NOT NULL,
   `subjectID` int(200) NOT NULL,
-  `prelims` decimal(10,0) NOT NULL,
-  `midterm` decimal(10,0) NOT NULL,
-  `finals` decimal(10,0) NOT NULL
+  `prelims` decimal(10,2) NOT NULL,
+  `midterm` decimal(10,2) NOT NULL,
+  `finals` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -172,8 +147,10 @@ CREATE TABLE `tbl_grade` (
 --
 
 INSERT INTO `tbl_grade` (`gradeID`, `studentID`, `subjectID`, `prelims`, `midterm`, `finals`) VALUES
-(1, 1, 1, 0, 0, 0),
-(2, 1, 8, 0, 0, 0);
+(1, 1, 1, 0.00, 0.00, 0.00),
+(2, 1, 8, 56.30, 76.00, 76.00),
+(4, 3, 10, 0.00, 0.00, 0.00),
+(5, 1, 9, 80.00, 87.00, 90.00);
 
 -- --------------------------------------------------------
 
@@ -191,7 +168,7 @@ CREATE TABLE `tbl_logo` (
 --
 
 INSERT INTO `tbl_logo` (`logoid`, `Logo`) VALUES
-(1, 0x2e2e2f6173736574732f75706c6f6164732f556e7469746c6564335f32303233313031313032323332392e706e67);
+(1, 0x2e2e2f6173736574732f75706c6f6164732f4b4f2e706e67);
 
 -- --------------------------------------------------------
 
@@ -235,7 +212,7 @@ CREATE TABLE `tbl_student` (
 
 INSERT INTO `tbl_student` (`studentID`, `username`, `password`, `section`, `year`, `courseID`, `appointmentID`, `statusID`) VALUES
 (1, 'arias@student', 'arias', 'A', 'III', 1, 13, 2),
-(2, 'juliana@student', '123', 'D', 'III', 3, 13, 2);
+(3, 'juls@student', '123', 'A', 'III', 2, 11, 2);
 
 -- --------------------------------------------------------
 
@@ -271,7 +248,7 @@ CREATE TABLE `tbl_student_info` (
 
 INSERT INTO `tbl_student_info` (`student_infoID`, `studentID`, `email`, `fName`, `lName`, `mName`, `sex`, `bday`, `homeAddress`, `phoneNo.`, `guardianName`, `guardianPhoneNo`, `guardianAddress`, `elementary`, `elementaryYear`, `juniorHigh`, `juniorHighYear`, `seniorHigh`, `seniorHighYear`) VALUES
 (1, 1, 'arias@gmail.com', 'clarq', 'arias', 'pangan', 'Male', '2003-08-08', 'mars', 9123456789, 'dad', 9123456788, 'mars', 'mandasig', 2015, 'hcc', 2019, 'hcc', 2021),
-(2, 2, 'juls@gmail.com', 'juls', 'paguinto', 'simbulan', 'Female', '5656-06-05', 'mars', 3232323232, 'cheenee', 998098092, 'jupiter', 'dasdas', 2015, 'dsada', 2323, 'dsada', 2323);
+(3, 3, 'juls@gmail.com', 'juliana', 'paguinto', 'simbulan', 'Female', '2003-07-07', 'jupiter', 9123456789, 'cheenee', 9123456788, 'uranus', 'das', 2345, 'das', 3456, 'das', 4567);
 
 -- --------------------------------------------------------
 
@@ -296,7 +273,8 @@ INSERT INTO `tbl_subject` (`subjectID`, `subjectName`, `courseID`, `instructor`,
 (1, 'Devops 2', 1, 'magic man', 'III', 5),
 (4, 'Webdev', 3, 'wizard man', 'III', 5),
 (8, 'Itelec 3', 1, 'knight man', 'III', 2),
-(9, 'CC106', 1, 'Ms Jane', 'III', 3);
+(9, 'CC106', 1, 'Ms Jane', 'III', 3),
+(10, 'Webdev', 2, 'magic man', 'III', 3);
 
 -- --------------------------------------------------------
 
@@ -441,7 +419,7 @@ ALTER TABLE `tbl_course`
 -- AUTO_INCREMENT for table `tbl_grade`
 --
 ALTER TABLE `tbl_grade`
-  MODIFY `gradeID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `gradeID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_status`
@@ -453,19 +431,19 @@ ALTER TABLE `tbl_status`
 -- AUTO_INCREMENT for table `tbl_student`
 --
 ALTER TABLE `tbl_student`
-  MODIFY `studentID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `studentID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_student_info`
 --
 ALTER TABLE `tbl_student_info`
-  MODIFY `student_infoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `student_infoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tbl_subject`
 --
 ALTER TABLE `tbl_subject`
-  MODIFY `subjectID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `subjectID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tbl_user`

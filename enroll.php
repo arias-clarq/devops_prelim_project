@@ -15,8 +15,16 @@ include 'index-template/header.php';
                     </strong>
                 </div>
                 <?php
-            }
+            } else if (isset($_SESSION['exists_message'])) { ?>
+                    <div class="alert alert-danger alert-dismissible text-center">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>
+                        <?=$_SESSION['exists_message']?>
+                        </strong>
+                    </div>
+            <?php }
             unset($_SESSION['message']);
+            unset($_SESSION['exists_message']);
             ?>
         </div>
         <!-- section for appointment schedule -->
@@ -42,7 +50,8 @@ include 'index-template/header.php';
                         ?>
                         <tr>
                             <td>
-                                <?= date('F j, Y', strtotime($row['date'])) ?> |  <?= date('l', strtotime($row['date'])) ?>
+                                <?= date('F j, Y', strtotime($row['date'])) ?> |
+                                <?= date('l', strtotime($row['date'])) ?>
                             </td>
                             <td>
                                 <?= date('h:i A', $start_time) . ' - ' . date('h:i A', $end_time) ?>
@@ -50,7 +59,7 @@ include 'index-template/header.php';
                             <td>
                                 <?= $row['slots'] ?>
                             </td>
-                            <td><input type="radio" name="appointmentID" value="<?= $row['appointmentID'] ?>"></td>
+                            <td><input type="radio" name="appointmentID" value="<?= $row['appointmentID'] ?>" required></td>
                         </tr>
                     <?php }
                     ?>
@@ -64,14 +73,19 @@ include 'index-template/header.php';
             <label for="">Username:</label>
             <div class="input-group mb-3">
                 <input type="text" class="form-control" name="username" placeholder="Username"
-                    aria-describedby="basic-addon2" required> 
+                    aria-describedby="basic-addon2"
+                    value="<?php if (isset($_SESSION['username'])) {
+                        echo $_SESSION['username'];
+                    } ?>" required>
                 <span class="input-group-text" id="basic-addon2">@student</span>
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com"
-                    name="email" required>
+                    name="email" value="<?php if (isset($_SESSION['email'])) {
+                        echo $_SESSION['email'];
+                    } ?>" required>
             </div>
 
             <div class="mb-3">
@@ -87,30 +101,48 @@ include 'index-template/header.php';
             <label for="">Elementary:</label>
             <div class="row g-3 mb-3">
                 <div class="col-8">
-                    <input type="text" class="form-control" name="elem" placeholder="School Name" required>
+                    <input type="text" class="form-control" name="elem" placeholder="School Name"
+                        value="<?php if (isset($_SESSION['elem'])) {
+                            echo $_SESSION['elem'];
+                        } ?>" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="elem-year" maxlength="4" placeholder="Graduation Year" required>
+                    <input type="text" class="form-control" name="elem-year" maxlength="4" placeholder="Graduation Year"
+                        value="<?php if (isset($_SESSION['elem-year'])) {
+                            echo $_SESSION['elem-year'];
+                        } ?>" required>
                 </div>
             </div>
 
             <label for="">Junior High School:</label>
             <div class="row g-3 mb-3">
                 <div class="col-8">
-                    <input type="text" class="form-control" name="jh" placeholder="School Name" required>
+                    <input type="text" class="form-control" name="jh" placeholder="School Name"
+                        value="<?php if (isset($_SESSION['jh'])) {
+                            echo $_SESSION['jh'];
+                        } ?>" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="jh-year" maxlength="4" placeholder="Graduation Year" required>
+                    <input type="text" class="form-control" name="jh-year" maxlength="4" placeholder="Graduation Year"
+                        value="<?php if (isset($_SESSION['jh-year'])) {
+                            echo $_SESSION['jh-year'];
+                        } ?>" required>
                 </div>
             </div>
 
             <label for="">Senior High School:</label>
             <div class="row g-3 mb-3">
                 <div class="col-8">
-                    <input type="text" class="form-control" name="sh" placeholder="School Name" required>
+                    <input type="text" class="form-control" name="sh" placeholder="School Name"
+                        value="<?php if (isset($_SESSION['sh'])) {
+                            echo $_SESSION['sh'];
+                        } ?>" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="sh-year" maxlength="4" placeholder="Graduation Year" required>
+                    <input type="text" class="form-control" name="sh-year" maxlength="4" placeholder="Graduation Year"
+                        value="<?php if (isset($_SESSION['sh-year'])) {
+                            echo $_SESSION['sh-year'];
+                        } ?>" required>
                 </div>
             </div>
         </div>
@@ -123,13 +155,22 @@ include 'index-template/header.php';
             <label for="">Student's Name:</label>
             <div class="row g-3 mb-3">
                 <div class="col">
-                    <input type="text" class="form-control" name="lName" placeholder="Last name" required>
+                    <input type="text" class="form-control" name="lName" placeholder="Last name"
+                        value="<?php if (isset($_SESSION['lName'])) {
+                            echo $_SESSION['lName'];
+                        } ?>" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="fName" placeholder="First name" required>
+                    <input type="text" class="form-control" name="fName" placeholder="First name"
+                        value="<?php if (isset($_SESSION['fName'])) {
+                            echo $_SESSION['fName'];
+                        } ?>" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="mName" placeholder="Middle name" required>
+                    <input type="text" class="form-control" name="mName" placeholder="Middle name"
+                        value="<?php if (isset($_SESSION['mName'])) {
+                            echo $_SESSION['mName'];
+                        } ?>" required>
                 </div>
             </div>
 
@@ -137,14 +178,23 @@ include 'index-template/header.php';
                 <div class="col">
                     <label for="">Sex</label>
                     <select name="sex" class="form-select">
-                        <option selected>Choose...</option>
-                        <option>Male</option>
-                        <option>Female</option>
+                        <option <?php if (!isset($_SESSION['sex'])) {
+                            echo 'selected';
+                        } ?>>Choose...</option>
+                        <option <?php if (isset($_SESSION['sex']) == 'Male') {
+                            echo 'selected';
+                        } ?>>Male</option>
+                        <option <?php if (isset($_SESSION['sex']) == 'Female') {
+                            echo 'selected';
+                        } ?>>Female</option>
                     </select>
                 </div>
                 <div class="col">
                     <label for="">Birthdate</label>
-                    <input type="date" class="form-control" name="bdate" required max="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" class="form-control" name="bdate"
+                        value="<?php if (isset($_SESSION['bdate'])) {
+                            echo $_SESSION['bdate'];
+                        } ?>" required max="<?php echo date('Y-m-d'); ?>">
                 </div>
             </div>
 
@@ -153,7 +203,10 @@ include 'index-template/header.php';
                     <label for="">Contact Number</label>
                     <div class="input-group">
                         <div class="input-group-text">+63</div>
-                        <input type="text" class="form-control" id="" maxlength="10" placeholder="9XXXXXXXX" name="contact" required>
+                        <input type="text" class="form-control" id="" maxlength="10" placeholder="9XXXXXXXX" name="contact"
+                            value="<?php if (isset($_SESSION['contact'])) {
+                                echo $_SESSION['contact'];
+                            } ?>" required>
                     </div>
                 </div>
             </div>
@@ -162,29 +215,40 @@ include 'index-template/header.php';
                 <div class="col">
                     <label for="">Home Address</label>
                     <textarea name="homeAddress" class="form-control" id="" placeholder="Enter full address" cols="30"
-                        rows="2"></textarea required>
+                        rows="2"
+                        required><?php if (isset($_SESSION['homeAddress'])) {
+                            echo $_SESSION['homeAddress'];
+                        } ?></textarea>
                 </div>
             </div>
 
             <div class="row g-3 mb-3">
                 <div class="col">
                     <label for="">Guardian's Name</label>
-                    <input type="text" placeholder="Enter Guardian's Full Name" class="form-control"
-                        name="guardianName" required>
+                    <input type="text" placeholder="Enter Guardian's Full Name" class="form-control" name="guardianName"
+                        value="<?php if (isset($_SESSION['guardianName'])) {
+                            echo $_SESSION['guardianName'];
+                        } ?>" required>
                 </div>
                 <div class="col">
                     <label for="">Guardian's Contact Number</label>
                     <div class="input-group">
                         <div class="input-group-text">+63</div>
-                        <input type="text" class="form-control" id="" maxlength="10" placeholder="9XXXXXXXX" name="guardianNo" required>
+                        <input type="text" class="form-control" id="" maxlength="10" placeholder="9XXXXXXXX" name="guardianNo"
+                            value="<?php if (isset($_SESSION['guardianNo'])) {
+                                echo $_SESSION['guardianNo'];
+                            } ?>" required>
                     </div>
                 </div>
             </div>
             <div class="row g-3 mb-3">
                 <div class="col">
                     <label for="">Guardian's Home Address</label>
-                    <textarea class="form-control" id="" placeholder="Enter full address of guardian" cols="30"
-                        rows="2" name="guardianHomeAddress" required></textarea>
+                    <textarea class="form-control" id="" placeholder="Enter full address of guardian" cols="30" rows="2"
+                        name="guardianHomeAddress"
+                        required><?php if (isset($_SESSION['guardianHomeAddress'])) {
+                            echo $_SESSION['guardianHomeAddress'];
+                        } ?></textarea>
                 </div>
             </div>
             <hr>
@@ -199,7 +263,9 @@ include 'index-template/header.php';
                         $showCourse = $conn->query($courseSql);
                         while ($row = $showCourse->fetch_assoc()) {
                             ?>
-                            <option value="<?= $row['courseID'] ?>">
+                            <option value="<?= $row['courseID'] ?>" <?php if ($row['courseID'] == isset($_SESSION['course'])) {
+                                  echo 'selected';
+                              } ?>>
                                 <?= $row['courseName'] ?>
                             </option>
                         <?php }
@@ -209,11 +275,21 @@ include 'index-template/header.php';
                 <div class="col">
                     <label for="">Year level you want to enroll</label>
                     <select name="year" class="form-select">
-                        <option selected>Choose...</option>
-                        <option>I</option>
-                        <option>II</option>
-                        <option>III</option>
-                        <option>IV</option>
+                        <option <?php if (!isset($_SESSION['year'])) {
+                            echo 'selected';
+                        } ?>>Choose...</option>
+                        <option <?php if (isset($_SESSION['year']) == 'I') {
+                            echo 'selected';
+                        } ?>>I</option>
+                        <option <?php if (isset($_SESSION['year']) == 'II') {
+                            echo 'selected';
+                        } ?>>II</option>
+                        <option <?php if (isset($_SESSION['year']) == 'III') {
+                            echo 'selected';
+                        } ?>>III</option>
+                        <option <?php if (isset($_SESSION['year']) == 'IV') {
+                            echo 'selected';
+                        } ?>>IV</option>
                     </select>
                 </div>
             </div>
