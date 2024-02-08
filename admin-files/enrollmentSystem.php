@@ -324,9 +324,9 @@
                         <th>Subjects</th>
                         <th>Course</th>
                         <th>Instructor</th>
-                        <th>Year</th>
-                        <th>Hours</th>
-                        <th>Actions</th>
+                        <th style="width: 100px;">Year</th>
+                        <th style="width: 100px;">Hours</th>
+                        <th style="width: 200px;">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
