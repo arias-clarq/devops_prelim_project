@@ -27,21 +27,19 @@ include "config/dbcon.php";
 <body>
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light py-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <?php
-                include_once "config/dbcon.php";
-                $sql = "SELECT * FROM `tbl_logo` WHERE `logoid` = 1";
-                $result = $conn->query($sql);
+            <?php
+            include_once "config/dbcon.php";
+            $sql = "SELECT * FROM `tbl_logo` WHERE `logoid` = 1";
+            $result = $conn->query($sql);
 
-                if ($result->num_rows > 0) {
-                    // Fetch the logo data
-                    $row = $result->fetch_assoc();
-                ?>
-
-                    <img src="././uploads/<?php echo $row['Logo']; ?>" alt="" height="60">
-                <?php } ?>
-            </a>
-
+            if ($result->num_rows > 0) {
+                // Fetch the logo data
+                $row = $result->fetch_assoc();
+            ?>
+                <a class="navbar-brand" href="#">
+                    <img src="assets/uploads/<?php echo $row["Logo"]; ?>" alt="" height="60">
+                </a>
+            <?php } ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

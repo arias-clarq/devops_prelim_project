@@ -90,7 +90,7 @@ include 'index-template/header.php';
                     <input type="text" class="form-control" name="elem" placeholder="School Name" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="elem-year" placeholder="Graduation Year" required>
+                    <input type="text" class="form-control" name="elem-year" maxlength="4" placeholder="Graduation Year" required>
                 </div>
             </div>
 
@@ -100,7 +100,7 @@ include 'index-template/header.php';
                     <input type="text" class="form-control" name="jh" placeholder="School Name" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="jh-year" placeholder="Graduation Year" required>
+                    <input type="text" class="form-control" name="jh-year" maxlength="4" placeholder="Graduation Year" required>
                 </div>
             </div>
 
@@ -110,7 +110,7 @@ include 'index-template/header.php';
                     <input type="text" class="form-control" name="sh" placeholder="School Name" required>
                 </div>
                 <div class="col">
-                    <input type="text" class="form-control" name="sh-year" placeholder="Graduation Year" required>
+                    <input type="text" class="form-control" name="sh-year" maxlength="4" placeholder="Graduation Year" required>
                 </div>
             </div>
         </div>
@@ -144,7 +144,7 @@ include 'index-template/header.php';
                 </div>
                 <div class="col">
                     <label for="">Birthdate</label>
-                    <input type="date" class="form-control" name="bdate" required>
+                    <input type="date" class="form-control" name="bdate" required max="<?php echo date('Y-m-d'); ?>">
                 </div>
             </div>
 
@@ -153,7 +153,7 @@ include 'index-template/header.php';
                     <label for="">Contact Number</label>
                     <div class="input-group">
                         <div class="input-group-text">+63</div>
-                        <input type="text" class="form-control" id="" placeholder="9XXXXXXXX" name="contact" required>
+                        <input type="text" class="form-control" id="" maxlength="10" placeholder="9XXXXXXXX" name="contact" required>
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@ include 'index-template/header.php';
                     <label for="">Guardian's Contact Number</label>
                     <div class="input-group">
                         <div class="input-group-text">+63</div>
-                        <input type="text" class="form-control" id="" placeholder="9XXXXXXXX" name="guardianNo" required>
+                        <input type="text" class="form-control" id="" maxlength="10" placeholder="9XXXXXXXX" name="guardianNo" required>
                     </div>
                 </div>
             </div>

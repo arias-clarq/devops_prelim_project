@@ -13,6 +13,7 @@ include 'index-template/header.php';
             </strong>
         </div>
         <?php
+        unset($_SESSION['message']);
     }
     ?>
 </div>

@@ -46,7 +46,7 @@ include_once "../config/dbcon.php";
         // Fetch the logo data
         $row = $result->fetch_assoc();
         ?>
-        <img src="././uploads/<?php echo $row["Logo"]; ?>" alt="" width="60" height="60">
+        <img src="././uploads/<?php echo $row["Logo"]; ?>" alt="" height="60">
         <?php
     } 
     
