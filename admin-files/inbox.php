@@ -31,7 +31,7 @@
                                     Delete
                                 </button>
                                 <?php include 'admin-includes/cms-openInbox-modal.php'; ?>
-                                <?php include 'admin-includes/deletes-modal.php'; ?>
+                                <?php include 'admin-includes/deletes-modal/inbox.php'; ?>
                             </td>
                         </tr>
                     </tbody>
