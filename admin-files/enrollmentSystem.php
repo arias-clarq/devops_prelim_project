@@ -103,7 +103,8 @@
                         <tr>
                             <td>
                                 <p>
-                                    <?= date('F j, Y', strtotime($row['date'])) ?>
+                                    <?= date('F j, Y', strtotime($row['date'])) ?> |
+                                    <?= date('l', strtotime($row['date'])) ?>
                                 </p>
                             </td>
                             <td>
@@ -233,9 +234,35 @@
     </div>
     <!-- Student Approval Request end -->
 
+    <!-- Masterlist start -->
     <div class="container-fluid border text-center my-4 p-3">
         <h2>Masterlist</h2>
-
+        <!-- masterlist controler response messages -->
+        <div class="container">
+            <?php
+            if (isset($_SESSION['updMaster_message'])) {
+                ?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>
+                        <?= $_SESSION['updMaster_message'] ?>
+                    </strong>
+                </div>
+                <?php
+            } else if (isset($_SESSION['delMaster_message'])) {
+                ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <strong>
+                        <?= $_SESSION['delMaster_message'] ?>
+                        </strong>
+                    </div>
+                <?php
+            }
+            unset($_SESSION['updMaster_message']);
+            unset($_SESSION['delMaster_message']);
+            ?>
+        </div>
         <div class="container table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -264,15 +291,27 @@
                         $start_time = strtotime($row['start_time']); // Parse start time
                         ?>
                         <tr>
-                            <td><?=$row['username']?></td>
-                            <td><?=$row['lName'].', '.$row['fName'].' '.$row['mName']?></td>
-                            <td><?=$row['courseName']?></td>
-                            <td><?=$row['year']?></td>
-                            <td><?=$row['section']?></td>
-                            <td><?=$row['status']?></td>
+                            <td>
+                                <?= $row['username'] ?>
+                            </td>
+                            <td>
+                                <?= $row['lName'] . ', ' . $row['fName'] . ' ' . $row['mName'] ?>
+                            </td>
+                            <td>
+                                <?= $row['courseName'] ?>
+                            </td>
+                            <td>
+                                <?= $row['year'] ?>
+                            </td>
+                            <td>
+                                <?= $row['section'] ?>
+                            </td>
+                            <td>
+                                <?= $row['status'] ?>
+                            </td>
                             <td>
                                 <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                                    data-bs-target="#OpenStudentMasterlistModal<?=$row['studentID']?>">Open</button>
+                                    data-bs-target="#OpenStudentMasterlistModal<?= $row['studentID'] ?>">Open</button>
                                 <?php include 'admin-includes\enrollment-open-masterlist-modal.php'; ?>
                             </td>
                         </tr>
@@ -281,6 +320,7 @@
             </table>
         </div>
     </div>
+    <!-- Masterlist end -->
 
     <!-- Subjects start -->
     <div class="container-fluid border text-center my-4 p-3">
