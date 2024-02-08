@@ -42,7 +42,7 @@ include 'index-template/header.php';
                         ?>
                         <tr>
                             <td>
-                                <?= date('F j, Y', strtotime($row['date'])) ?>
+                                <?= date('F j, Y', strtotime($row['date'])) ?> |  <?= date('l', strtotime($row['date'])) ?>
                             </td>
                             <td>
                                 <?= date('h:i A', $start_time) . ' - ' . date('h:i A', $end_time) ?>
