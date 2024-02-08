@@ -1,8 +1,10 @@
-<?php session_start(); 
-include "config/dbcon.php";
-?>
+<?php
+session_start();
+include("config/dbcon.php");
 
-<?php $page = substr($_SERVER['SCRIPT_NAME'], strrpos($_SERVER['SCRIPT_NAME'], "/") + 1); ?>
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +12,7 @@ include "config/dbcon.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prelim - exam</title>
+
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -25,11 +27,26 @@ include "config/dbcon.php";
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light shadow-sm bg-light py-3">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="https://webstockreview.net/images/win-clipart-closed-window-13.png" alt="" width="60">
-            </a>
+        <a class="navbar-brand" href="#">
+    <?php
+    // Fetch the logo data from the database
+    $sql = "SELECT * FROM `tbl_logo` WHERE `logoid` = 1"; 
+    $result = $conn->query($sql);
+
+    // Check if there's a row in the result
+    if ($result->num_rows > 0) {
+        // Fetch the logo data
+        $row = $result->fetch_assoc();
+        ?>
+        <img src="././uploads/<?php echo $row["Logo"]; ?>" alt="" width="60" height="60">
+        <?php
+    } 
+    
+    ?>
+</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
