@@ -79,9 +79,28 @@ include 'student-includes/header.php';
                     <tr class="text-center">
                         <td><?=$row['subjectName']?></td>
                         <td><?=$row['instructor']?></td>
-                        <td><?php if($row['prelims'] <= 0){ echo 'TBA';}else{echo $row['prelims'];}?></td>
-                        <td><?php if($row['midterm'] <= 0){ echo 'TBA';}else{echo $row['midterm'];}?></td>
-                        <td><?php if($row['finals'] <= 0){ echo 'TBA';}else{echo $row['finals'];}?></td>
+                        <td><?php if($row['prelims'] <= 0){ echo 'TBA';}else{
+                            if(substr($row['prelims'], -3) == '.00'){
+                                echo substr($row['prelims'], 0, -3);
+                            }else{
+                                echo $row['prelims'];
+                            }
+                        }?>
+                        </td>
+                        <td><?php if($row['midterm'] <= 0){ echo 'TBA';}else{
+                            if(substr($row['midterm'], -3) == '.00'){
+                                echo substr($row['midterm'], 0, -3);
+                            }else{
+                                echo $row['midterm'];
+                            }
+                        }?></td>
+                        <td><?php if($row['finals'] <= 0){ echo 'TBA';}else{
+                            if(substr($row['finals'], -3) == '.00'){
+                                echo substr($row['finals'],0,-3);
+                            }else{
+                                echo $row['finals'];
+                            }
+                            }?></td>
                         <?php
                         $prelim = $row['prelims'];
                         $midterm = $row['midterm'];
@@ -89,9 +108,17 @@ include 'student-includes/header.php';
 
                         $average = ($prelim + $midterm + $finals) / 3;
                         ?>
-                        <td><?php if($average <= 0){ echo 'TBA';}else{echo $average;}?></td>
+                        <td><?php if($average <= 0){ echo 'TBA';}else{echo number_format($average, 2);}?></td>
                         <td>
-                            <?php if($average <= 0){ echo 'TBA';}else{echo $average;}?>
+                            <?php 
+                            if($average >= 75 && $average <= 100){ 
+                                echo "PASSED";
+                            }else if($average == 0){
+                                echo 'TBA';
+                            }else if($average < 75){
+                                echo 'FAILED';
+                            }
+                            ?>
                         </td>
                     </tr>
                     <?php } ?>
