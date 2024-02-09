@@ -5,7 +5,8 @@ include_once("dbcon.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["logo"])) {
     $targetDir = "../assets/uploads/";
-    $targetFile = $targetDir . basename($_FILES["logo"]["name"]);
+    $targetFile = basename($_FILES["logo"]["name"]);
+    $uploadLogo = $targetDir.$targetFile;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
@@ -37,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["logo"])) {
 
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $_SESSION['Success_error'] = "Sorry, your file was not uploaded.";
+        // $_SESSION['Success_error'] = "Sorry, your file was not uploaded.";
     } else {
         // Fetch the old logo path from the database
         $selectOldImageSql = "SELECT logo FROM tbl_logo WHERE logoid = 1";
@@ -53,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["logo"])) {
         }
 
         // if everything is ok, try to upload file
-        if (move_uploaded_file($_FILES["logo"]["tmp_name"], $targetFile)) {
+        if (move_uploaded_file($_FILES["logo"]["tmp_name"], $uploadLogo)) {
             // Update the image file path in the database
             $updateImageSql = "UPDATE tbl_logo SET logo = '$targetFile' WHERE logoid = 1";
             if ($conn->query($updateImageSql) === TRUE) {

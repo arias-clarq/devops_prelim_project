@@ -84,9 +84,9 @@ include 'admin-includes/header.php'; ?>
             $row = $result->fetch_assoc();
         ?>
             <span class="d-block">
-                <img src=".././uploads/<?php echo $row["Logo"]; ?>" height="200vh" alt="Logo Image">
+                <img src="../assets/uploads/<?php echo $row["Logo"]; ?>" height="200vh" alt="Logo Image">
             </span>
-            <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#logoModal">Choose Logo</button>
+            <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#logoModal">Choose Logo </button>
         <?php include 'admin-includes/cms-logo-modal.php';
         }
         ?>
