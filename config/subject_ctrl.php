@@ -45,6 +45,12 @@ if (isset($_POST['btn_delSubject'])) {
     $deleteSql = "DELETE FROM `tbl_subject` WHERE `subjectID` = {$subjectID}";
     $result = $conn->query($deleteSql);
 
+    $subjectGrade = "DELETE FROM `tbl_grade` WHERE `subjectID` = {$subjectID}";
+    $result2 = $conn->query($subjectGrade);
+    if ($result2 !== true) {
+        echo "Error deleting subject: " . $conn->error;
+    }
+
     if ($result === true) {
         $_SESSION['delSub_message'] = 'Subject is Deleted';
         header("location: ../admin-files/enrollmentSystem.php");
