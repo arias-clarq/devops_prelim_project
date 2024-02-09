@@ -10,7 +10,7 @@
         $row = $result->fetch_assoc();
         ?>
         <a class="" href="#">
-            <img src=".././uploads/<?php echo $row["Logo"]; ?>" alt="" height="60">
+            <img src="../assets/uploads/<?php echo $row["Logo"]; ?>" alt="" height="60">
         </a>
     <?php } ?>
     <hr class="hr-custom">

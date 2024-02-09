@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["bg"])) {
 
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        $_SESSION['Success_error'] = "Sorry, your file was not uploaded.";
+        // $_SESSION['Success_error'] = "Sorry, your file was not uploaded.";
     } else {
         // if everything is ok, try to upload file
         if (move_uploaded_file($_FILES["bg"]["tmp_name"], $targetFile)) {
