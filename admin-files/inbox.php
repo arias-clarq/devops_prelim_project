@@ -47,9 +47,9 @@
                                 <td>
                                     <?= $count ?>
                                 </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><?php echo $row['sender'] ?></td>
+                                <td><?php echo $row['email'] ?></td>
+                                <td><?php echo $row['date'] ?></td>
                                 <td>
                                     <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                                         data-bs-target="#OpenInboxModal<?= $row['inboxID'] ?>">

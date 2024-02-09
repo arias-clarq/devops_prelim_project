@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    show message here
+                    <?php echo $row['message']?>
                 </div>
             </div>
             <div class="modal-footer">
