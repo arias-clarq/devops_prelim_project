@@ -71,7 +71,7 @@ include_once "../config/dbcon.php";
                 <div class="dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-regular fa-circle-user px-1 fa-lg"></i><?= $_SESSION['student'] ?>
+                        <i class="fa-regular fa-circle-user px-1 fa-lg"></i> <span class="text-capitalize"><?= $_SESSION['student'] ?> </span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href="studentProfile.php"><i
