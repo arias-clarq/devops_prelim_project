@@ -106,16 +106,22 @@ include 'student-includes/header.php';
                         $midterm = $row['midterm'];
                         $finals = $row['finals'];
 
-                        $average = ($prelim + $midterm + $finals) / 3;
+                        if($prelim > 0 && $midterm > 0 && $finals > 0){
+                            $average = ($prelim + $midterm + $finals) / 3;
+                            $flag = true;
+                        }else{
+                            $average = 0;
+                            $flag = false;
+                        }
                         ?>
                         <td><?php if($average <= 0){ echo 'TBA';}else{echo number_format($average, 2);}?></td>
                         <td>
                             <?php 
-                            if($average >= 75 && $average <= 100){ 
+                            if(($average >= 75 && $average <= 100) && $flag == true){ 
                                 echo "PASSED";
                             }else if($average == 0){
                                 echo 'TBA';
-                            }else if($average < 75){
+                            }else if(($average < 75) && $flag == true){
                                 echo 'FAILED';
                             }
                             ?>
