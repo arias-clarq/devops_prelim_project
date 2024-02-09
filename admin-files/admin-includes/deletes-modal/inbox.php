@@ -1,5 +1,5 @@
 <!-- Modal delete in inbox -->
-<div class="modal fade text-start" id="DeleteInboxModal" tabindex="-1" aria-labelledby="DeleteInboxModalLabel"
+<div class="modal fade text-start" id="DeleteInboxModal<?=$row['inboxID'] ?>" tabindex="-1" aria-labelledby="DeleteInboxModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
