@@ -13,8 +13,14 @@ include 'index-template/header.php';
             </strong>
         </div>
         <?php
-        unset($_SESSION['message']);
-    }
+    } else if (isset($_SESSION['passChange_message'])) { ?>
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>
+                <?= $_SESSION['passChange_message'] ?>
+                </strong>
+            </div>
+    <?php }
     ?>
 </div>
 
@@ -27,7 +33,7 @@ $result = $conn->query($sql);
 $imgCounter = 1;
 
 if ($result->num_rows > 0) {
-?>
+    ?>
     <!-- carousel -->
     <div class="container-fluid">
         <div id="demo" class="carousel slide" data-bs-ride="carousel">
@@ -37,27 +43,31 @@ if ($result->num_rows > 0) {
                 <?php
                 $rows = $result->fetch_all(MYSQLI_ASSOC); // Fetch all rows into an array
                 foreach ($rows as $row) {
-                ?>
+                    ?>
                     <button type="button" data-bs-target="#demo" data-bs-slide-to="<?= $imgCounter ?>"></button>
-                <?php $imgCounter++;
+                    <?php $imgCounter++;
                 } ?>
             </div>
             <div class="carousel-inner">
                 <?php
                 foreach ($rows as $index => $row) {
-                ?>
+                    ?>
                     <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
                         <img src="./uploads/<?php echo $row['Bg']; ?>" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
                             <?php if (!is_null($row['title'])) { ?>
-                                <h5><?php echo $row['title']; ?></h5>
+                                <h5>
+                                    <?php echo $row['title']; ?>
+                                </h5>
                             <?php } ?>
                             <?php if (!is_null($row['description'])) { ?>
-                                <p><?php echo $row['description']; ?></p>
+                                <p>
+                                    <?php echo $row['description']; ?>
+                                </p>
                             <?php } ?>
                         </div>
                     </div>
-                <?php
+                    <?php
                 }
                 ?>
             </div>
@@ -88,17 +98,21 @@ if ($result->num_rows > 0) {
                 if ($result->num_rows > 0) {
                     // Loop through each row of data
                     while ($row = $result->fetch_assoc()) {
-                ?>
+                        ?>
                         <div class="col">
                             <div class="card h-100">
                                 <img src=./uploads/<?php echo $row['Image']; ?> class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title"><?php echo $row['Title']; ?></h5>
-                                    <p class="card-text"><?php echo $row['Caption']; ?></p>
+                                    <h5 class="card-title">
+                                        <?php echo $row['Title']; ?>
+                                    </h5>
+                                    <p class="card-text">
+                                        <?php echo $row['Caption']; ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                <?php
+                        <?php
                     }
                 }
                 ?>
@@ -120,14 +134,18 @@ if ($result->num_rows > 0) {
             if ($result->num_rows > 0) {
                 // Loop through each row of data
                 while ($row = $result->fetch_assoc()) {
-            ?>
+                    ?>
                     <div class="p-1 col-sm-<?php echo $row['Size']; ?>">
                         <div class="col p-1" style="margin:1px; background-color: <?php echo $row['Color']; ?> ">
-                            <h5><?php echo $row['Title']; ?></h5>
-                            <p><?php echo $row['Caption']; ?></p>
+                            <h5>
+                                <?php echo $row['Title']; ?>
+                            </h5>
+                            <p>
+                                <?php echo $row['Caption']; ?>
+                            </p>
                         </div>
                     </div>
-            <?php
+                    <?php
                 }
             }
             ?>
@@ -139,23 +157,32 @@ if ($result->num_rows > 0) {
 <?php } else { ?>
     <div class="row mx-0 bg-info bg-gradient p-4 text-center text-white d-flex justify-content-center">
         <h1 class="">Welcome</h1>
-        <p>Your webpage is ready to be set up. If you are the admin, click start and setup the website through content management section.</p>
+        <p>Your webpage is ready to be set up. If you are the admin, click start and setup the website through content
+            management section.</p>
         <div class="col-2">
-            <button class="btn btn-outline-light align-self-center" data-bs-toggle="modal" data-bs-target="#loginModal">Start</button>
+            <button class="btn btn-outline-light align-self-center" data-bs-toggle="modal"
+                data-bs-target="#loginModal">Start</button>
         </div>
     </div>
     <div class="row mx-0 p-4">
         <div class="col-sm-4">
             <h4>Content Management System</h4>
-            <p>Using a CMS is the ability to easily set up and manage website elements such as carousels, blogs, footers, and more. For example, you can easily create and manage a carousel, which is a slideshow of images or other content, to showcase your services on your website. You can also set up and manage a blog, which allows you to regularly publish new content to your website.</p>
+            <p>Using a CMS is the ability to easily set up and manage website elements such as carousels, blogs, footers,
+                and more. For example, you can easily create and manage a carousel, which is a slideshow of images or other
+                content, to showcase your services on your website. You can also set up and manage a blog, which allows you
+                to regularly publish new content to your website.</p>
         </div>
         <div class="col-sm-4">
             <h4>Basic Messaging System</h4>
-            <p>A basic messaging app can be a valuable tool for students or users to communicate with an administrator or other authorized parties. With this app, users can send messages that will be displayed in an inbox, where they can be reviewed and responded to as needed.</p>
+            <p>A basic messaging app can be a valuable tool for students or users to communicate with an administrator or
+                other authorized parties. With this app, users can send messages that will be displayed in an inbox, where
+                they can be reviewed and responded to as needed.</p>
         </div>
         <div class="col-sm-4">
             <h4>Digital Enrollment System</h4>
-            <p>Enrollment systems typically include a wide range of features, including student registration, course management, academic records management, and reporting. Students can use the system to select and register for courses</p>
+            <p>Enrollment systems typically include a wide range of features, including student registration, course
+                management, academic records management, and reporting. Students can use the system to select and register
+                for courses</p>
         </div>
     </div>
     <div class="row mx-0 p-4">

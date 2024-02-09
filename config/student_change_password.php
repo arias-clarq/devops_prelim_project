@@ -26,7 +26,7 @@ if (isset($_POST['btn_change_password'])) {
                     // echo "Password updated successfully!";
                    
 
-                    $_SESSION['message'] = "Password updated successfully! You are redirected to homepage to restart account. Please login again with your new password.";
+                    $_SESSION['passChange_message'] = "Password updated successfully! You are redirected to homepage to restart account. Please login again with your new password.";
                     header("location: ../index.php");
                 } else {
                    
