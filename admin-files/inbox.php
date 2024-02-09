@@ -39,7 +39,9 @@
                         $result = $conn->query("$showMsg");
                         $count = 1;
                         while ($row = $result->fetch_assoc()) {
-                            //show ouput here
+                            $databaseDate = new DateTime($row['date']);
+                            $formattedDate = $databaseDate->format("F j, Y g:ia");
+                            
                             ?>
                             <tr <?php if ($row['status'] == 1) {
                                 echo "style='background-color: #ddd'";
@@ -49,7 +51,7 @@
                                 </td>
                                 <td><?php echo $row['sender'] ?></td>
                                 <td><?php echo $row['email'] ?></td>
-                                <td><?php echo $row['date'] ?></td>
+                                <td><?php echo  $formattedDate ?></td>
                                 <td>
                                     <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
                                         data-bs-target="#OpenInboxModal<?= $row['inboxID'] ?>">
