@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2024 at 02:59 PM
+-- Generation Time: Feb 09, 2024 at 10:53 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -147,10 +147,33 @@ CREATE TABLE `tbl_grade` (
 --
 
 INSERT INTO `tbl_grade` (`gradeID`, `studentID`, `subjectID`, `prelims`, `midterm`, `finals`) VALUES
-(1, 1, 1, 0.00, 0.00, 0.00),
-(2, 1, 8, 56.30, 76.00, 76.00),
+(1, 1, 1, 78.00, 76.00, 80.00),
+(2, 1, 8, 56.30, 76.99, 76.00),
 (4, 3, 10, 0.00, 0.00, 0.00),
 (5, 1, 9, 80.00, 87.00, 90.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_inbox`
+--
+
+CREATE TABLE `tbl_inbox` (
+  `inboxID` int(255) NOT NULL,
+  `sender` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `date` datetime NOT NULL,
+  `message` varchar(200) NOT NULL,
+  `status` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_inbox`
+--
+
+INSERT INTO `tbl_inbox` (`inboxID`, `sender`, `email`, `date`, `message`, `status`) VALUES
+(1, 'clarq', 'clarq@gmail.com', '2024-02-09 10:09:19', 'lorem ipsum', 1),
+(2, 'clarq', 'clarq@gmail.com', '2024-02-09 10:10:52', 'lorem ipsum', 1);
 
 -- --------------------------------------------------------
 
@@ -212,7 +235,10 @@ CREATE TABLE `tbl_student` (
 
 INSERT INTO `tbl_student` (`studentID`, `username`, `password`, `section`, `year`, `courseID`, `appointmentID`, `statusID`) VALUES
 (1, 'arias@student', 'arias', 'A', 'III', 1, 13, 2),
-(3, 'juls@student', '123', 'A', 'III', 2, 11, 2);
+(3, 'juls@student', '123', 'A', 'III', 2, 11, 2),
+(4, 'arias@student', '123', NULL, 'III', 1, 11, 1),
+(5, 'arias@student', 'd', NULL, 'IV', 3, 11, 1),
+(6, 'arias2@student', 'a', NULL, 'IV', 3, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -346,6 +372,12 @@ ALTER TABLE `tbl_grade`
   ADD PRIMARY KEY (`gradeID`);
 
 --
+-- Indexes for table `tbl_inbox`
+--
+ALTER TABLE `tbl_inbox`
+  ADD PRIMARY KEY (`inboxID`);
+
+--
 -- Indexes for table `tbl_status`
 --
 ALTER TABLE `tbl_status`
@@ -422,6 +454,12 @@ ALTER TABLE `tbl_grade`
   MODIFY `gradeID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `tbl_inbox`
+--
+ALTER TABLE `tbl_inbox`
+  MODIFY `inboxID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `tbl_status`
 --
 ALTER TABLE `tbl_status`
@@ -431,13 +469,13 @@ ALTER TABLE `tbl_status`
 -- AUTO_INCREMENT for table `tbl_student`
 --
 ALTER TABLE `tbl_student`
-  MODIFY `studentID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `studentID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_student_info`
 --
 ALTER TABLE `tbl_student_info`
-  MODIFY `student_infoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `student_infoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tbl_subject`

@@ -1,6 +1,6 @@
 <!-- Modal delete in inbox -->
-<div class="modal fade text-start" id="DeleteInboxModal" tabindex="-1" aria-labelledby="DeleteInboxModalLabel"
-    aria-hidden="true">
+<div class="modal fade text-start" id="DeleteInboxModal<?= $row['inboxID'] ?>" tabindex="-1"
+    aria-labelledby="DeleteInboxModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,9 +8,13 @@
             </div>
             <div class="modal-body text-center">
                 <h5>Are you sure to delete the message?</h5>
-                <button class="btn btn-success rounded-pill">Yes</button>
-                <button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal"
-                    aria-label="Close">No</button>
+                <form action="../config/inbox_ctrl.php" method="post">
+                    <input type="hidden" name="inboxID" value="<?= $row['inboxID'] ?>">
+                    <button name="btn-delete" type="submit" class="btn btn-success rounded-pill">Yes</button>
+
+                    <button type="button" class="btn btn-danger rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">No</button>
+                </form>
             </div>
         </div>
     </div>

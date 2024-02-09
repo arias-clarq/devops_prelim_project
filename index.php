@@ -141,7 +141,7 @@ if ($result->num_rows > 0) {
         <h1 class="">Welcome</h1>
         <p>Your webpage is ready to be set up. If you are the admin, click start and setup the website through content management section.</p>
         <div class="col-2">
-            <button class="btn btn-outline-light align-self-center">Start</button>
+            <button class="btn btn-outline-light align-self-center" data-bs-toggle="modal" data-bs-target="#loginModal">Start</button>
         </div>
     </div>
     <div class="row mx-0 p-4">
