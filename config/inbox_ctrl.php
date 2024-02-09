@@ -42,3 +42,17 @@ if (isset($_POST["btn-read"])) {
         echo 'Error: ' . $conn->error;
     }
 }
+
+if (isset($_POST["btn-delete"])) {
+    $id = $_POST["inboxID"];
+
+    $delete = "DELETE FROM `tbl_inbox` WHERE `inboxID` = {$id}";
+    $result = $conn->query($delete);
+
+    if ($result === true) {
+        $_SESSION['message'] = 'Message successfully deleted';
+        header("location: ../admin-files/inbox.php");
+    } else {
+        echo 'Error: ' . $conn->error;
+    }
+}
