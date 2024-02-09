@@ -37,7 +37,7 @@ if ($result->num_rows > 0) {
         // Fetch the logo data
         $row = $result->fetch_assoc();
         ?>
-        <img src="././uploads/<?php echo $row["Logo"]; ?>" alt="" width="40" height="40" style="margin-right: 10px;">
+        <img src="assets/uploads/<?php echo $row["Logo"]; ?>" alt="" width="40" height="40" style="margin-right: 10px;">
         <?php
     } 
     
