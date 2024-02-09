@@ -76,7 +76,10 @@ if (isset($_GET['sID'])) {
                                 $studentYear = $row['year'];
                                 $studentID = $row['studentID'];
 
-                                $sql_subject = "SELECT * FROM tbl_subject INNER JOIN tbl_grade ON tbl_grade.subjectID = tbl_subject.subjectID WHERE courseID = '$studentCourseID' AND year = '$studentYear'";
+                                $sql_subject = "SELECT tbl_subject.subjectID as subjectID_tbl_subject, tbl_subject.subjectName, tbl_subject.courseID, tbl_subject.instructor, tbl_subject.year, tbl_subject.hours, tbl_grade.gradeID, tbl_grade.studentID, tbl_grade.subjectID as subjectID_tbl_grade, tbl_grade.prelims, tbl_grade.midterm, tbl_grade.finals
+                                FROM tbl_subject
+                                LEFT JOIN tbl_grade ON tbl_grade.subjectID = tbl_subject.subjectID AND tbl_grade.studentID = '$studentID'
+                                WHERE tbl_subject.courseID = '$studentCourseID' AND tbl_subject.year = '$studentYear'";
                                 $resultSubjects = $conn->query($sql_subject);
 
                                 while ($row2 = $resultSubjects->fetch_assoc()) { 
@@ -104,7 +107,7 @@ if (isset($_GET['sID'])) {
                                                 <button class="btn btn-success" type="submit" name="btn_save_grades">Save</button>
                                                 <!-- hidden -->
                                                 <input type="hidden" name="studentID" value="<?= $row['studentID'] ?>">
-                                                <input type="hidden" name="subjectID" value="<?= $row2['subjectID'] ?>">
+                                                <input type="hidden" name="subjectID" value="<?= $row2['subjectID_tbl_subject'] ?>">
                                             </td>
                                         </tr>
                                     </form>
