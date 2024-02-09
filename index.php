@@ -165,8 +165,8 @@ if ($result->num_rows > 0) {
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="alert alert-danger" role="alert">
-                Status: Pending
+            <div class="alert alert-success" role="alert">
+                Status: Complete
             </div>
         </div>
         <div class="col-sm-4">
