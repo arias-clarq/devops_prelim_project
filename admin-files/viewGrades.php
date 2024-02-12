@@ -13,16 +13,45 @@ if (isset($_GET['sID'])) {
                         WHERE tbl_student.studentID = $GET_studentID";
     $result = $conn->query($class_studentSql);
 
-    ?>
+?>
 
     <!-- Page content -->
     <div class="main">
+        <div class="container pt-3">
+            <?php
+            if (isset($_SESSION['message'])) {
+            ?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>
+                        <?= $_SESSION['message'] ?>
+                    </strong>
+                </div>
+            <?php
+            unset($_SESSION['message']);
+            }
+            ?>
+            <!-- for error -->
+            <?php
+            if (isset($_SESSION['error-message'])) {
+            ?>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    <strong>
+                        <?= $_SESSION['error-message'] ?>
+                    </strong>
+                </div>
+            <?php
+            unset($_SESSION['error-message']);
+            }
+            ?>
+        </div>
         <div class="container-fluid border my-4 p-4">
             <h1>E-grades</h1>
             <div class="container">
                 <?php while ($row = $result->fetch_assoc()) {
 
-                    ?>
+                ?>
                     <div class="row">
                         <div class="col">
                             <div class="d-flex flex-row">
@@ -82,10 +111,10 @@ if (isset($_GET['sID'])) {
                                 WHERE tbl_subject.courseID = '$studentCourseID' AND tbl_subject.year = '$studentYear'";
                                 $resultSubjects = $conn->query($sql_subject);
 
-                                while ($row2 = $resultSubjects->fetch_assoc()) { 
-                                      // Calculate the average and determine remarks
-                                      $average = round(($row2['prelims'] + $row2['midterm'] + $row2['finals']) / 3, 2);
-                                      $remarks = ($average >= 75 && $average <= 100) ? 'Passed' : 'Failed';?>
+                                while ($row2 = $resultSubjects->fetch_assoc()) {
+                                    // Calculate the average and determine remarks
+                                    $average = round(($row2['prelims'] + $row2['midterm'] + $row2['finals']) / 3, 2);
+                                    $remarks = ($average >= 75 && $average <= 100) ? 'Passed' : 'Failed'; ?>
                                     <form action="../config/grades_ctrl.php" method="post">
                                         <tr class="text-center">
                                             <td>
@@ -96,7 +125,7 @@ if (isset($_GET['sID'])) {
                                             </td>
 
                                             <td> <input type="text" step="0.01" class="form-control" value="<?= $row2['prelims'] ?>" name="prelims"> </td>
-                                            <td> <input type="text" step="0.01" class="form-control" value="<?= $row2['midterm'] ?>"  name="midterm"> </td>
+                                            <td> <input type="text" step="0.01" class="form-control" value="<?= $row2['midterm'] ?>" name="midterm"> </td>
                                             <td> <input type="text" step="0.01" class="form-control" value="<?= $row2['finals'] ?>" name="finals"> </td>
 
                                             <td><input type="text" step="0.01" class="form-control" readonly name="average" value="<?= $average ?>"></td>
@@ -116,12 +145,12 @@ if (isset($_GET['sID'])) {
                         </table>
 
                     </div>
-                </div>
-            <?php }
-} ?>
+            </div>
+    <?php }
+            } ?>
+        </div>
     </div>
-</div>
 
 
 
-<?php include 'admin-includes/footer.php'; ?>
+    <?php include 'admin-includes/footer.php'; ?>
