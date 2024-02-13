@@ -10,14 +10,14 @@
             <div class="container">
                 <?php
                 if (isset($_SESSION['message'])) {
-                    ?>
-                    <div class="alert alert-danger alert-dismissible">
+                ?>
+                    <div class="alert alert-success alert-dismissible">
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                         <strong>
                             <?= $_SESSION['message'] ?>
                         </strong>
                     </div>
-                    <?php
+                <?php
                 }
                 unset($_SESSION['message']);
                 ?>
@@ -38,35 +38,40 @@
                         $showMsg = "SELECT * FROM `tbl_inbox`";
                         $result = $conn->query("$showMsg");
                         $count = 1;
-                        while ($row = $result->fetch_assoc()) {
-                            $databaseDate = new DateTime($row['date']);
-                            $formattedDate = $databaseDate->format("F j, Y g:ia");
-                            
-                            ?>
-                            <tr <?php if ($row['status'] == 1) {
-                                echo "style='background-color: #ddd'";
-                            } ?>>
-                                <td>
-                                    <?= $count ?>
-                                </td>
-                                <td><?php echo $row['sender'] ?></td>
-                                <td><?php echo $row['email'] ?></td>
-                                <td><?php echo  $formattedDate ?></td>
-                                <td>
-                                    <button class="btn btn-primary rounded-pill" data-bs-toggle="modal"
-                                        data-bs-target="#OpenInboxModal<?= $row['inboxID'] ?>">
-                                        Open
-                                    </button>
-                                    <button class="btn btn-danger rounded-pill" data-bs-toggle="modal"
-                                        data-bs-target="#DeleteInboxModal<?= $row['inboxID'] ?>">
-                                        Delete
-                                    </button>
-                                    <?php include 'admin-includes/cms-openInbox-modal.php'; ?>
-                                    <?php include 'admin-includes/deletes-modal/inbox.php'; ?>
-                                </td>
-                            </tr>
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $databaseDate = new DateTime($row['date']);
+                                $formattedDate = $databaseDate->format("F j, Y g:ia");
+
+                        ?>
+                                <tr <?php if ($row['status'] == 1) {
+                                        echo "style='background-color: #ddd'";
+                                    } ?>>
+                                    <td>
+                                        <?= $count ?>
+                                    </td>
+                                    <td><?php echo $row['sender'] ?></td>
+                                    <td><?php echo $row['email'] ?></td>
+                                    <td><?php echo  $formattedDate ?></td>
+                                    <td>
+                                        <button class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#OpenInboxModal<?= $row['inboxID'] ?>">
+                                            Open
+                                        </button>
+                                        <button class="btn btn-danger rounded-pill" data-bs-toggle="modal" data-bs-target="#DeleteInboxModal<?= $row['inboxID'] ?>">
+                                            Delete
+                                        </button>
+                                        <?php include 'admin-includes/cms-openInbox-modal.php'; ?>
+                                        <?php include 'admin-includes/deletes-modal/inbox.php'; ?>
+                                    </td>
+                                </tr>
                             <?php $count++;
-                        } ?>
+                            }
+                        } else { ?>
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">No messages received yet.</td>
+                            </tr>
+                        <?php       }
+                        ?>
                     </tbody>
                 </table>
             </div>
